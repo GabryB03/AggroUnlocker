@@ -1,6 +1,6 @@
-﻿using MetroSuite;
+﻿using FileUnlockingSharp;
+using MetroSuite;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -71,13 +71,13 @@ public partial class MainForm : MetroForm
 
             new Thread(() =>
             {
-                if (File.Exists(path))
+                try
                 {
-                    Utils.UnlockFile(path);
+                    FileUnlocker.ForcefullyCompleteDeletePath(path);
                 }
-                else if (Directory.Exists(path))
+                catch
                 {
-                    Utils.UnlockDirectory(path);
+
                 }
             }).Start();
         }
